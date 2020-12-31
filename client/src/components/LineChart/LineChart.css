@@ -1,0 +1,32 @@
+.linechart-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* padding: 0 1rem; */
+}
+
+.linechart-wrapper--tabs {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    /* color: #077ea3; */
+    color: var(--secondary-color);
+}
+
+.linechart-wrapper--tabs span.active {
+    color: var(--accent-color);
+}
+
+.linechart-wrapper--tabs span {
+    border-bottom: 2px solid;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.linechart-wrapper--tabs span:hover {
+    color: var(--accent-color);
+}
+
+.linechart-wrapper--tabs span:not(:last-child) {
+    margin-right: 1.5rem;
+}
