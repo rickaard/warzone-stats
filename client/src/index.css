@@ -31,3 +31,34 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.hero-wrapper--player h1 {
+    font-size: 1.8rem;
+}
+
+.hero-wrapper--player_stats {
+    display: flex;
+    flex-direction: row;
+}
+
+.player_stats--card-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1c2b;
+    border-radius: 6px;
+    text-align: center;
+    min-width: 120px;
+    padding: 0.3rem 0;
+    margin: 0 1rem;
+}
+
+.player_stats--card-item:first-child {
+    margin-left: 0;
+}
+
+.player_stats--card-item span:last-child {
+    font-size: .8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--accent-color);
+}

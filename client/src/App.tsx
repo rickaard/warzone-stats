@@ -44,6 +44,9 @@ const chartData = (canvas: HTMLCanvasElement) => {
     datasets: [{
       fill: 'start',
       data: data,
+      legend: {
+        display: false
+      },
       backgroundColor: gradient,
       // backgroundColor: [
       //   'rgba(255, 99, 132, 0.2)',
@@ -75,9 +78,15 @@ function App() {
         <div className="hero-wrapper--player">
           <h1>OJNAB#21824</h1>
           <div className="hero-wrapper--player_stats">
-            <span>4338 kills</span>
-            <span>5983 downs</span>
-            <span>2351 deaths</span>
+            <div className="player_stats--card-item">
+              <span>4338</span><span>kills</span>
+            </div>
+            <div className="player_stats--card-item">
+              <span>5983</span><span>downs</span>
+            </div>
+            <div className="player_stats--card-item">
+              <span>2351</span><span>deaths</span>
+            </div>
           </div>
         </div>
         <LineChart recentData={chartData} activeTab={activeTab} changeActiveTab={changeActiveTab} />

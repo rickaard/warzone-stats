@@ -15,6 +15,9 @@ interface Props {
 
 const options = {
     responsive: true,
+    legend: {
+        display: false
+    },
     scales: {
         yAxes: [{
             ticks: {
@@ -29,8 +32,8 @@ const LineChart: React.FC<Props> = ({ recentData, activeTab, changeActiveTab }) 
         <div className="linechart-wrapper">
             <div className="linechart-wrapper--tabs">
                 <span onClick={() => changeActiveTab('kills')} role="button" className={activeTab === 'kills' ? 'active' : ''}>Kills</span>
-                <span onClick={() => changeActiveTab('damage')}  role="button"  className={activeTab === 'damage' ? 'active' : ''}>Damage</span>
-                <span onClick={() => changeActiveTab('k/d')}  role="button" className={activeTab === 'k/d' ? 'active' : ''}>K/D</span>
+                <span onClick={() => changeActiveTab('damage')} role="button" className={activeTab === 'damage' ? 'active' : ''}>Damage</span>
+                <span onClick={() => changeActiveTab('k/d')} role="button" className={activeTab === 'k/d' ? 'active' : ''}>K/D</span>
             </div>
             <Line
                 data={recentData}
