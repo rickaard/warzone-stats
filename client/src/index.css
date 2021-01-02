@@ -5,16 +5,20 @@
     --accent-color: #077ea3;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-body {
     background-color: #13141d;
     color: var(--primary-color);
+    border-top: 5px solid var(--accent-color);
 }
 
 .App {
@@ -22,43 +26,11 @@ body {
 }
 
 .hero-wrapper {
-    width: 90%;
+    width: 96%;
     margin: 3rem auto;
+    max-width: 1200px;
 }
 
-.hero-wrapper--player {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.hero-wrapper--player h1 {
-    font-size: 1.8rem;
-}
-
-.hero-wrapper--player_stats {
-    display: flex;
-    flex-direction: row;
-}
-
-.player_stats--card-item {
-    display: flex;
-    flex-direction: column;
-    background-color: #1a1c2b;
-    border-radius: 6px;
-    text-align: center;
-    min-width: 120px;
-    padding: 0.3rem 0;
-    margin: 0 1rem;
-}
-
-.player_stats--card-item:first-child {
-    margin-left: 0;
-}
-
-.player_stats--card-item span:last-child {
-    font-size: .8rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: var(--accent-color);
+.btn {
+    cursor: pointer;
 }

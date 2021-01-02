@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Line } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // types
 import { ActiveType } from "../../interfaces";
@@ -18,13 +19,46 @@ const options = {
     legend: {
         display: false
     },
+    tooltips: {
+        titleAlign: 'center',
+        bodyAlign: 'center',
+        displayColors: false,
+        yPadding: 10,
+        xPadding: 8,
+    },
     scales: {
         yAxes: [{
+            display: false,
+            offset: true,
             ticks: {
                 beginAtZero: true,
-            }
+            },
         }],
+        xAxes: [{
+            display: true,
+            offset: true,
+            position: 'bottom',
+            ticks: {
+                padding: -20,
+                autoSkip: false,
+                maxRotation: 30,
+                minRotation: 30,
+            }
+        }]
     },
+    plugins: {
+        datalabels: {
+            display: true,
+            formatter: (value: {x: number, y: number }) => value.y,
+            color: '#fff',
+            align: 'end',
+            offset: 4,
+            fontWeight: 500,
+            font: {
+                weight: 'bold'
+            }
+        }
+    }
 }
 
 const LineChart: React.FC<Props> = ({ recentData, activeTab, changeActiveTab }) => {
@@ -32,14 +66,15 @@ const LineChart: React.FC<Props> = ({ recentData, activeTab, changeActiveTab }) 
         <div className="linechart-wrapper">
             <div className="linechart-wrapper--tabs">
                 <span onClick={() => changeActiveTab('kills')} role="button" className={activeTab === 'kills' ? 'active' : ''}>Kills</span>
-                <span onClick={() => changeActiveTab('damage')} role="button" className={activeTab === 'damage' ? 'active' : ''}>Damage</span>
-                <span onClick={() => changeActiveTab('k/d')} role="button" className={activeTab === 'k/d' ? 'active' : ''}>K/D</span>
+                <span onClick={() => changeActiveTab('damageDone')} role="button" className={activeTab === 'damageDone' ? 'active' : ''}>Damage</span>
+                <span onClick={() => changeActiveTab('kdRatio')} role="button" className={activeTab === 'kdRatio' ? 'active' : ''}>K/D</span>
             </div>
             <Line
                 data={recentData}
                 options={options}
-                width={600}
-                height={250}
+                width={1200}
+                height={500}
+                plugins={[ChartDataLabels]}
             />
         </div>
     );

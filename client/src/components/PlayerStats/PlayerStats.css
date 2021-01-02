@@ -1,0 +1,66 @@
+.playerstats-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.playerstats-wrapper--player {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.playerstats-wrapper--player h1 {
+    font-size: 1.8rem;
+    margin-bottom: .5rem;
+}
+
+.playerstats-wrapper--player_stats {
+    display: flex;
+    flex-direction: row;
+}
+
+.player_stats--card-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1c2b;
+    border-radius: 6px;
+    text-align: center;
+    min-width: 120px;
+    padding: 0.3rem 0;
+    margin: 0 1rem;
+}
+
+.player_stats--card-item:first-child {
+    margin-left: 0;
+}
+
+.player_stats--card-item span:last-child {
+    font-size: .8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.btn-accent {
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    border-radius: 20px;
+    color: var(--accent-color);
+    padding: 0.6rem 1.6rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-accent:hover {
+    color: #fff;
+}
+
+.update-container {
+    display: flex;
+    align-items: center;
+}

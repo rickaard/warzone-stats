@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import LineChart from './components/LineChart/LineChart';
+import PlayerStatsContainer from './components/PlayerStats/PlayerStatsContainer';
 
 // types
 import { ActiveType } from "./interfaces";
@@ -8,59 +9,25 @@ import { ActiveType } from "./interfaces";
 // helpers
 import { getFormatedTime } from "./utils/helper-functions";
 
-// kills
+function roundToTwo(num: number) {    
+  return Math.round( ( num + Number.EPSILON ) * 100 ) / 100
+}
+
+
 const data = [
-  { x: 1609411162, y: 3 },
-  { x: 1609409648, y: 2 },
-  { x: 1609408227, y: 5 },
-  { x: 1609363522, y: 3 },
-  { x: 1609362592, y: 4 },
-  { x: 1609362023, y: 1 },
-  { x: 1609361153, y: 1 },
-  { x: 1609359666, y: 2 },
-  { x: 1609358824, y: 1 },
-  { x: 1609276252, y: 1 },
-  // { x: 1609274813, y: 0 },
-  // { x: 1609273200, y: 3 },
-  // { x: 1609271694, y: 2 },
-  // { x: 1609270113, y: 5 },
-  // { x: 1609268254, y: 6 },
-  // { x: 1609069037, y: 0 },
-  // { x: 1609068008, y: 2 },
-  // { x: 1609066830, y: 1 },
-  // { x: 1609065901, y: 2 },
-  // { x: 1609019569, y: 0 },
+  { utcStartSeconds: 1609411162, kills: 3, damageDone: 1148, kdRatio: roundToTwo(0.333333) },
+  { utcStartSeconds: 1609409648, kills: 20, damageDone: 533, kdRatio: roundToTwo(1.5) },
+  { utcStartSeconds: 1609408227, kills: 5, damageDone: 450, kdRatio: roundToTwo(0.5) },
+  { utcStartSeconds: 1609363522, kills: 3, damageDone: 1238, kdRatio: roundToTwo(3) },
+  { utcStartSeconds: 1609362592, kills: 8, damageDone: 1042, kdRatio: roundToTwo(0.25) },
+  { utcStartSeconds: 1609362023, kills: 1, damageDone: 1198, kdRatio: roundToTwo(2) },
+  { utcStartSeconds: 1609361153, kills: 0, damageDone: 2908, kdRatio: roundToTwo(5) },
+  { utcStartSeconds: 1609359666, kills: 2, damageDone: 194, kdRatio: roundToTwo(0.5) },
+  { utcStartSeconds: 1609358824, kills: 7, damageDone: 2080, kdRatio: roundToTwo(1.5) },
+  { utcStartSeconds: 1609276252, kills: 1, damageDone: 1052, kdRatio: roundToTwo(1) },
 ]
 
-const chartData = (canvas: HTMLCanvasElement) => {
-  const ctx = canvas.getContext('2d');
-  const gradient = ctx?.createLinearGradient(0, 0, 0, 250);
-  gradient?.addColorStop(0, 'rgba(14,68,112,1)')
-  gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
-  // gradient?.addColorStop(1, 'rgba(19,20,29,1)');
 
-  return {
-    labels: data.map(i => getFormatedTime(i.x)),
-    datasets: [{
-      fill: 'start',
-      data: data,
-      legend: {
-        display: false
-      },
-      backgroundColor: gradient,
-      // backgroundColor: [
-      //   'rgba(255, 99, 132, 0.2)',
-      //   'rgba(54, 162, 235, 0.2)',
-      //   'rgba(255, 206, 86, 0.2)',
-      //   'rgba(75, 192, 192, 0.2)',
-      //   'rgba(153, 102, 255, 0.2)',
-      //   'rgba(255, 159, 64, 0.2)'
-      // ],
-      borderColor: '#077ea3',
-      borderWidth: 1
-    }]
-  }
-}
 
 
 
@@ -72,24 +39,35 @@ function App() {
     setActiveTab(tab);
   }
 
+  const chartData = React.useCallback((canvas: HTMLCanvasElement) => {
+    const ctx = canvas.getContext('2d');
+    const gradient = ctx?.createLinearGradient(0, 0, 0, 250);
+    gradient?.addColorStop(0, 'rgba(14,68,112,1)')
+    gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
+    // gradient?.addColorStop(1, 'rgba(19,20,29,1)');
+
+    return {
+      labels: data.map(i => getFormatedTime(i.utcStartSeconds)),
+      datasets: [{
+        fill: 'start',
+        data: data.map((i) => i[activeTab]),
+        label: 'kills',
+        backgroundColor: gradient,
+        borderColor: '#077ea3',
+        borderWidth: 1
+      }]
+    }
+  }, [activeTab])
+
+
   return (
     <div className="App">
       <div className="hero-wrapper">
-        <div className="hero-wrapper--player">
-          <h1>OJNAB#21824</h1>
-          <div className="hero-wrapper--player_stats">
-            <div className="player_stats--card-item">
-              <span>4338</span><span>kills</span>
-            </div>
-            <div className="player_stats--card-item">
-              <span>5983</span><span>downs</span>
-            </div>
-            <div className="player_stats--card-item">
-              <span>2351</span><span>deaths</span>
-            </div>
-          </div>
-        </div>
+
+        <PlayerStatsContainer username="OJNAB#21824" />
+
         <LineChart recentData={chartData} activeTab={activeTab} changeActiveTab={changeActiveTab} />
+
       </div>
     </div>
   );

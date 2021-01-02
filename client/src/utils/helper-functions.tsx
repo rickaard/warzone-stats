@@ -7,5 +7,6 @@ export const getFormatedTime = (timestamp: number): string => {
     const minute = date.getUTCMinutes() < 10 ? '0' + date.getUTCMinutes() : date.getUTCMinutes();
     const fullTime = `${hour}:${minute}`;
 
-    return `${fullDate}\n${fullTime}`;
+    // return `${fullDate}\n${fullTime}`;
+    return fullTime;
 }

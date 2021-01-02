@@ -1,1 +1,1 @@
-export type ActiveType = 'kills' | 'damage' | 'k/d';
+export type ActiveType = 'kills' | 'damageDone' | 'kdRatio';
