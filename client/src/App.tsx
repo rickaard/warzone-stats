@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import LineChart from './components/LineChart/LineChart';
 import PlayerStatsContainer from './components/PlayerStats/PlayerStatsContainer';
+import useSearches from './hooks/useSearches';
 
 // types
 import { ActiveType } from "./interfaces";
@@ -9,8 +10,8 @@ import { ActiveType } from "./interfaces";
 // helpers
 import { getFormatedTime } from "./utils/helper-functions";
 
-function roundToTwo(num: number) {    
-  return Math.round( ( num + Number.EPSILON ) * 100 ) / 100
+function roundToTwo(num: number) {
+  return Math.round((num + Number.EPSILON) * 100) / 100
 }
 
 
@@ -34,6 +35,7 @@ const data = [
 
 function App() {
   const [activeTab, setActiveTab] = React.useState<ActiveType>('kills');
+  const { state } = useSearches();
 
   const changeActiveTab = (tab: ActiveType) => {
     setActiveTab(tab);
@@ -44,7 +46,6 @@ function App() {
     const gradient = ctx?.createLinearGradient(0, 0, 0, 250);
     gradient?.addColorStop(0, 'rgba(14,68,112,1)')
     gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
-    // gradient?.addColorStop(1, 'rgba(19,20,29,1)');
 
     return {
       labels: data.map(i => getFormatedTime(i.utcStartSeconds)),
