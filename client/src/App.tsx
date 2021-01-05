@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import LineChart from './components/LineChart/LineChart';
 import PlayerStatsContainer from './components/PlayerStats/PlayerStatsContainer';
-import useSearches from './hooks/useSearches';
+// import { useGlobalSearchContext } from './Store/SearchContext';
 
 // types
 import { ActiveType } from "./interfaces";
@@ -35,7 +35,8 @@ const data = [
 
 function App() {
   const [activeTab, setActiveTab] = React.useState<ActiveType>('kills');
-  const { state } = useSearches();
+  // const { favoritePlayers, recentSearches } = useGlobalSearchContext();
+
 
   const changeActiveTab = (tab: ActiveType) => {
     setActiveTab(tab);

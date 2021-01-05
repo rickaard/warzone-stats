@@ -1,62 +1,25 @@
 import * as React from 'react';
 
+import { searchReducer } from './reducer';
+import { IState, ActionType } from './types';
 
-interface IState {
+
+type ContextProps = {
     recentSearches: string[];
     favoritePlayers: string[];
+    dispatch: React.Dispatch<ActionType>;
 }
 
-type ActionType =
-    | { type: 'ADD_TO_RECENT', payload: string[] }
-    | { type: 'ADD_TO_FAVORITE', payload: string[] }
-    | { type: 'GET_RECENT' }
-    | { type: 'GET_FAVORITE' }
-    ;
-
-
-
-// const recentSearchesFromLocalStorage = localStorage.getItem('recent-name') || [];
-// const favoriteSearchesFromLocalStorage = localStorage.getItem('favorite-names') || [];
 
 const initialSearchState: IState = {
     recentSearches: [],
     favoritePlayers: []
 }
 
-
-const searchReducer = (state: IState, action: ActionType) => {
-    switch (action.type) {
-        case 'ADD_TO_RECENT':
-            return {
-                ...state,
-                recentSearches: action.payload
-            }
-
-        case 'ADD_TO_FAVORITE':
-            return {
-                ...state,
-                favoritePlayers: action.payload
-            }
-
-        case 'GET_RECENT':
-            return {
-                ...state,
-            }
-
-        case 'GET_FAVORITE':
-            return {
-                ...state,
-            }
-
-        default:
-            return state;
-    }
-
-}
+export const SearchContext = React.createContext<Partial<ContextProps>>(initialSearchState);
 
 
-
-const useSearches = () => {
+export const SearchProvider: React.FC = ({ children }) => {
     const [state, dispatch] = React.useReducer(searchReducer, initialSearchState);
 
     React.useEffect(() => {
@@ -74,8 +37,8 @@ const useSearches = () => {
 
 
     React.useEffect(() => {
-        console.log('LocalStorage - Favorite: ', state.favoritePlayers);
-        console.log('LocalStorage - Recent: ', state.recentSearches);
+        console.log('Favorite: ', state.favoritePlayers);
+        console.log('Recent: ', state.recentSearches);
     }, [state.favoritePlayers, state.recentSearches]);
 
 
@@ -90,11 +53,13 @@ const useSearches = () => {
         localStorage.setItem('favorite-names', JSON.stringify(state.favoritePlayers))
     }, [state.favoritePlayers])
 
-
-
-    return {
-        state
-    };
+    return (
+        <SearchContext.Provider value={{ ...state, dispatch }}>
+            {children}
+        </SearchContext.Provider>
+    )
 }
 
-export default useSearches;
+export const useGlobalSearchContext = () => {
+    return React.useContext(SearchContext);
+};
