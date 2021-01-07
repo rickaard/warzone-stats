@@ -4,9 +4,10 @@ import { Line } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // types
-import { ActiveType } from "../../interfaces";
+import { ActiveType } from '../../types/interfaces';
 
 import './LineChart.css';
+import { getFormatedTime, getFullFormatedTime } from '../../utils/helper-functions';
 
 interface Props {
     recentData: any;
@@ -25,6 +26,11 @@ const options = {
         displayColors: false,
         yPadding: 10,
         xPadding: 8,
+        callbacks: {
+            title: (val: any) => {
+                return getFullFormatedTime(val[0].xLabel)
+            }
+        }
     },
     scales: {
         yAxes: [{
@@ -43,13 +49,14 @@ const options = {
                 autoSkip: false,
                 maxRotation: 30,
                 minRotation: 30,
-            }
+                callback: (label: number) => getFormatedTime(label)
+            },
         }]
     },
     plugins: {
         datalabels: {
             display: true,
-            formatter: (value: {x: number, y: number }) => value.y,
+            formatter: (value: { x: number, y: number }) => value.y,
             color: '#fff',
             align: 'end',
             offset: 4,

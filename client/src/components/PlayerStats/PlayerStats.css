@@ -28,7 +28,7 @@
     background-color: #1a1c2b;
     border-radius: 6px;
     text-align: center;
-    min-width: 120px;
+    min-width: 80px;
     padding: 0.3rem 0;
     margin: 0 1rem;
 }
@@ -63,4 +63,71 @@
 .update-container {
     display: flex;
     align-items: center;
+}
+
+.playerstats-wrapper--player_name {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.fav-btn {
+    border: none;
+    background: transparent;
+    color: var(--secondary-color);
+    height: max-content;
+    align-self: center;
+    font-size: 1.5rem;
+    margin-left: 0.6rem;
+    transition: color 0.25s ease-in-out, transform 0.25s ease-in-out;
+}
+
+.fav-btn:hover,
+.fav-btn:active {
+    /* color: yellow; */
+    transform: scale(1.05);
+}
+
+.fav-btn.isFav {
+    color: yellow;
+}
+
+.fav-btn.isFav:hover,
+.fav-btn.isFav:active {
+    /* color: var(--secondary-color); */
+    transform: scale(1.05);
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    width: 294px;
+    /* margin-right: 1rem; */
+    justify-content: flex-end;
+}
+
+form input {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    border-radius: 23px;
+    padding: 0.65rem;
+    color: #fff;
+    width: 40px;
+    transition: width .5s ease-in-out;
+}
+
+form input.focused {
+    width: 200px;
+}
+
+form .search-btn {
+    position: relative;
+    font-size: 1.3rem;
+    right: 30px;
+    color: var(--accent-color);
+    font-weight: bold;
+    background: transparent;
+    border: none;
 }

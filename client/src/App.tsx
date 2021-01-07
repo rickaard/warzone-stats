@@ -2,45 +2,57 @@ import * as React from 'react';
 
 import LineChart from './components/LineChart/LineChart';
 import PlayerStatsContainer from './components/PlayerStats/PlayerStatsContainer';
+import Loader from './components/Loader/Loader';
 // import { useGlobalSearchContext } from './Store/SearchContext';
 
 // types
-import { ActiveType } from "./interfaces";
+import { ActiveType } from "./types/interfaces";
+import { RecentMatchesData } from "./types/recent-matches";
+
+
+// data
+import data from './testdata-recent.json';
+
 
 // helpers
-import { getFormatedTime } from "./utils/helper-functions";
+import { roundToTwo } from './utils/helper-functions';
+import RecentMatchesContainer from './components/RecentMatches/RecentMatchesContainer';
 
-function roundToTwo(num: number) {
-  return Math.round((num + Number.EPSILON) * 100) / 100
+const getLabelText = (tab: ActiveType) => {
+  if (tab === 'damageDone') {
+    return 'Damage done'
+  }
+  if (tab === 'kdRatio') {
+    return 'K/D Ratio'
+  }
+  if (tab === 'kills') {
+    return 'Kills'
+  }
 }
-
-
-const data = [
-  { utcStartSeconds: 1609411162, kills: 3, damageDone: 1148, kdRatio: roundToTwo(0.333333) },
-  { utcStartSeconds: 1609409648, kills: 20, damageDone: 533, kdRatio: roundToTwo(1.5) },
-  { utcStartSeconds: 1609408227, kills: 5, damageDone: 450, kdRatio: roundToTwo(0.5) },
-  { utcStartSeconds: 1609363522, kills: 3, damageDone: 1238, kdRatio: roundToTwo(3) },
-  { utcStartSeconds: 1609362592, kills: 8, damageDone: 1042, kdRatio: roundToTwo(0.25) },
-  { utcStartSeconds: 1609362023, kills: 1, damageDone: 1198, kdRatio: roundToTwo(2) },
-  { utcStartSeconds: 1609361153, kills: 0, damageDone: 2908, kdRatio: roundToTwo(5) },
-  { utcStartSeconds: 1609359666, kills: 2, damageDone: 194, kdRatio: roundToTwo(0.5) },
-  { utcStartSeconds: 1609358824, kills: 7, damageDone: 2080, kdRatio: roundToTwo(1.5) },
-  { utcStartSeconds: 1609276252, kills: 1, damageDone: 1052, kdRatio: roundToTwo(1) },
-]
-
-
-
-
 
 
 function App() {
   const [activeTab, setActiveTab] = React.useState<ActiveType>('kills');
   // const { favoritePlayers, recentSearches } = useGlobalSearchContext();
+  const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData>(data.recentMatches.data);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
 
   const changeActiveTab = (tab: ActiveType) => {
     setActiveTab(tab);
   }
+
+  const toggleUpdate = () => {
+    setIsLoading(true);
+  }
+
+  React.useEffect(() => {
+    if (isLoading) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 600);
+    }
+  }, [isLoading])
 
   const chartData = React.useCallback((canvas: HTMLCanvasElement) => {
     const ctx = canvas.getContext('2d');
@@ -49,29 +61,36 @@ function App() {
     gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
 
     return {
-      labels: data.map(i => getFormatedTime(i.utcStartSeconds)),
+      labels: recentMatches.matches.map(i => i.utcStartSeconds),
       datasets: [{
         fill: 'start',
-        data: data.map((i) => i[activeTab]),
-        label: 'kills',
+        data: recentMatches.matches.map((i) => roundToTwo(i.playerStats[activeTab])),
+        label: getLabelText(activeTab),
         backgroundColor: gradient,
         borderColor: '#077ea3',
         borderWidth: 1
       }]
     }
-  }, [activeTab])
+  }, [activeTab, recentMatches.matches])
 
+  if (isLoading) {
+    return (
+      <div className="App">
+        <div className="middle-aligned">
+          <Loader />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="App">
       <div className="hero-wrapper">
-
-        <PlayerStatsContainer username="OJNAB#21824" />
-
+        <PlayerStatsContainer username="OJNAB#21824" toggleUpdate={toggleUpdate}/>
         <LineChart recentData={chartData} activeTab={activeTab} changeActiveTab={changeActiveTab} />
-
+        <RecentMatchesContainer recentMatches={recentMatches.matches}/>
       </div>
-    </div>
+    </div >
   );
 }
 

@@ -36,10 +36,10 @@ export const SearchProvider: React.FC = ({ children }) => {
     }, []);
 
 
-    React.useEffect(() => {
-        console.log('Favorite: ', state.favoritePlayers);
-        console.log('Recent: ', state.recentSearches);
-    }, [state.favoritePlayers, state.recentSearches]);
+    // React.useEffect(() => {
+    //     console.log('Favorite: ', state.favoritePlayers);
+    //     console.log('Recent: ', state.recentSearches);
+    // }, [state.favoritePlayers, state.recentSearches]);
 
 
 

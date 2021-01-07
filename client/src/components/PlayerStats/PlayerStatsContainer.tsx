@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { AiOutlineStar } from 'react-icons/ai'
+import { FiSearch } from 'react-icons/fi';
+import ReactToolTip from 'react-tooltip';
 
 import PlayerStatsItemCard from './PlayerStatsItemCard';
 
@@ -6,14 +9,46 @@ import './PlayerStats.css';
 
 interface Props {
     username: string;
+    toggleUpdate: () => void;
 };
 
-const PlayerStatsContainer: React.FC<Props> = ({ username }) => {
+const PlayerStatsContainer: React.FC<Props> = ({ username, toggleUpdate }) => {
+    const [isFav, setIsFav] = React.useState<boolean>(false);
+    const [isFocused, setIsFocused] = React.useState<boolean>(false);
+
+    const toggleFavorite = () => {
+        setIsFav(isFav => !isFav);
+    }
+
+    const toggleSearch = (event: React.FocusEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        console.log('toggleSearch - onFocus');
+        setIsFocused(true);
+    }
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        // kolla om isFocused, såna fall gör annat
+        event.preventDefault();
+        setIsFocused(true);
+        console.log('handleSubmit')
+    }
+
     return (
         <div className="playerstats-wrapper">
 
             <div className="playerstats-wrapper--player">
-                <h1>{username}</h1>
+
+                <div className="playerstats-wrapper--player_name">
+                    <h1>{username}</h1>
+                    <button
+                        className={`btn fav-btn ${isFav ? 'isFav' : ''}`}
+                        data-tip={!isFav ? 'Add to favorite' : 'Remove from favorite'}
+                        onClick={toggleFavorite}>
+                        <AiOutlineStar />
+                    </button>
+                    <ReactToolTip place="right" delayShow={250} effect="solid" />
+                </div>
+
                 <div className="playerstats-wrapper--player_stats">
                     <PlayerStatsItemCard value={4338} label="kills" />
                     <PlayerStatsItemCard value={5983} label="downs" />
@@ -22,11 +57,19 @@ const PlayerStatsContainer: React.FC<Props> = ({ username }) => {
             </div>
 
             <div className="update-container">
-                <button className="btn btn-accent">update</button>
-
-            </div>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        className={`input-search ${isFocused ? 'focused' : ''}`}
+                        onFocus={toggleSearch}
+                    />
+                    <button className="search-btn"><FiSearch /></button>
+                </form>
+            {/* <button className="btn btn-search" onClick={toggleSearch}><FiSearch /></button> */}
+            <button className="btn btn-accent" onClick={toggleUpdate}>update</button>
 
         </div>
+
+        </div >
     );
 }
 
