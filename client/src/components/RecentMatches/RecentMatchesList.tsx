@@ -3,7 +3,7 @@ import { Match } from '../../types/recent-matches';
 
 import RecentMatchesCardItem from './RecentMatchesCardItem';
 
-import './RecentMatchesContainer.css';
+import './RecentMatchesList.css';
 
 interface Props {
     recentMatches: Match[];

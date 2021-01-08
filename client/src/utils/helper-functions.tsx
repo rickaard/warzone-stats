@@ -27,6 +27,7 @@ export const roundToTwo = (num: number) => {
     return Math.round((num + Number.EPSILON) * 100) / 100
 }
 
+// appends prefix after number, e.g 1th, 12th 
 export const addOrdinalNumberSuffix = (num: number) => {
 
     if (![11, 12, 13].includes(num % 100)) {
@@ -44,4 +45,20 @@ export const addOrdinalNumberSuffix = (num: number) => {
     };
 
     return 'th';
+};
+
+// converts seconds to MM:ss
+export const secondsToMMss = (seconds: number) => {
+    return new Date(seconds * 1000).toISOString().substr(14, 5);
+}
+
+export const brMode = (mode: string) => {
+    if (mode === 'br_brquads') return 'BR Quads';
+    if (mode === 'br_brduos') return 'BR Duos';
+    if (mode === 'br_brtriostim_name2') return 'BR Trios Stimulus';
+    if (mode === 'br_brtrios') return 'BR Trios';
+    if (mode === 'br_brsolo') return 'BR Solo';
+    if (mode === 'br_mini_miniroyale') return 'Mini Royale';
+
+    return 'Unknown mode';
 };

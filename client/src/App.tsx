@@ -3,6 +3,8 @@ import * as React from 'react';
 import LineChart from './components/LineChart/LineChart';
 import PlayerStatsContainer from './components/PlayerStats/PlayerStatsContainer';
 import Loader from './components/Loader/Loader';
+import RecentMatchesList from './components/RecentMatches/RecentMatchesList';
+
 // import { useGlobalSearchContext } from './Store/SearchContext';
 
 // types
@@ -16,7 +18,6 @@ import data from './testdata-recent.json';
 
 // helpers
 import { roundToTwo } from './utils/helper-functions';
-import RecentMatchesContainer from './components/RecentMatches/RecentMatchesContainer';
 
 const getLabelText = (tab: ActiveType) => {
   if (tab === 'damageDone') {
@@ -88,7 +89,7 @@ function App() {
       <div className="hero-wrapper">
         <PlayerStatsContainer username="OJNAB#21824" toggleUpdate={toggleUpdate}/>
         <LineChart recentData={chartData} activeTab={activeTab} changeActiveTab={changeActiveTab} />
-        <RecentMatchesContainer recentMatches={recentMatches.matches}/>
+        <RecentMatchesList recentMatches={recentMatches.matches}/>
       </div>
     </div >
   );
