@@ -3,27 +3,18 @@ import { useGlobalSearchContext } from '../Store/SearchContext';
 import { PlayerStatsData } from '../types/player-stats';
 import { RecentMatchesData } from '../types/recent-matches';
 
-export type FetchingStatusType = 'fetching' | 'success' | 'error' | 'idle';
+export type FetchingStatusType = 'fetching' | 'done' | 'error' | 'idle';
 
 
 const URL = process.env.API_URL!;
 
-const fetchPlayerData = async (data: { codName: string }) => {
-    const response = await fetch(URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    const result = await response.json();
-    return result;
-}
+
 
 const useFetchPlayerData = (name: string) => {
     const [fetchingStatus, setFetchingStatus] = React.useState<FetchingStatusType>('idle');
     const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData | null>(null);
     const [playerData, setPlayerData] = React.useState<PlayerStatsData | null>(null);
+    const { dispatch } = useGlobalSearchContext();
 
 
     React.useEffect(() => {
@@ -33,27 +24,43 @@ const useFetchPlayerData = (name: string) => {
             return;
         }
 
-        setFetchingStatus('fetching')
-        try {
-            fetchPlayerData(bodyData);
-        } 
-        catch (err) {
-            setFetchingStatus('error');
-        }
-        finally {
-            setFetchingStatus('success');
-        }
+        const fetchPlayerData = async () => {
+            setFetchingStatus('fetching');
+            try {
+                const response = await fetch(URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bodyData)
+                });
+                if (response.status >= 300) {
+                    throw Error('Error while fetching playerdata');
+                }
+                const result = await response.json();
+                console.log(result);
+            }
+            catch (err) {
+                console.log('[useFetchPlayerData.tsx] fetching error:', err);
+                setFetchingStatus('error');
+            }
+            finally {
+                setFetchingStatus('done')
+            }
 
+        };
 
-
+        fetchPlayerData();
 
     }, [name])
 
     return {
         setFetchingStatus,
         isLoading: fetchingStatus === 'fetching',
-        isError: fetchingStatus === 'error',
-        isSuccess: fetchingStatus === 'success',
+        error: fetchingStatus === 'error',
+        isDone: fetchingStatus === 'done', // rename to success?
+        recentMatches,
+        playerData
     }
 };
 
