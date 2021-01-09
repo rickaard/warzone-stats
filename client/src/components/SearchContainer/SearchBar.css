@@ -16,6 +16,12 @@
     border: none;
     background: #fff;
     color: var(--seconday-color);
+    transition: all 0.5 ease-in-out;
+}
+
+.form-wrapper input.focused {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .form-wrapper p {
@@ -26,4 +32,84 @@
 
 .form-wrapper p span {
     font-weight: bold;
+}
+
+.form-wrapper .search-suggestions {
+    width: 100%;
+    background-color: #fff;
+    height: 0;
+    transition: height 0.2s ease-in-out, opacity 0.1s ease-in-out;
+    opacity: 0;
+    overflow: hidden;
+    box-shadow: 0 16px 22px -10px rgba(0, 0, 0, .15), 0 34px 55px 4px rgba(0, 0, 0, .08), 0 13px 66px 12px rgba(0, 0, 0, .07);
+}
+
+.form-wrapper .search-suggestions.show {
+    height: 250px;
+    opacity: 1;
+}
+
+.buttons-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: .3rem;
+}
+
+.buttons-wrapper button {
+    /* flex: 1; */
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding-bottom: .5rem;
+    display: flex;
+    align-items: center;
+}
+
+.buttons-wrapper button svg {
+    margin-right: .4rem;
+}
+
+.buttons-wrapper button.active {
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.player-names {
+    padding: .6rem .7rem;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.player-names h5 {
+    margin-bottom: .5rem;
+}
+
+.player-names li {
+    list-style: none;
+    width: max-content;
+    margin: .4rem 0;
+}
+
+.player-names li span {
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.player-names li span:hover {
+    text-decoration: underline;
+}
+
+.player-names li svg {
+    cursor: pointer;
+    font-size: .7rem;
+    color: var(--secondary-color);
+}
+
+.player-names li svg:hover {
+    transform: scale(1.1);
+}
+
+.player-names li.isFav svg {
+    color: gold;
 }

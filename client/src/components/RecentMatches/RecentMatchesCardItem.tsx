@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Match } from '../../types/recent-matches';
-import { addOrdinalNumberSuffix, brMode, getFullFormatedTime, roundToTwo } from '../../utils/helper-functions';
+import { addOrdinalNumberSuffix, brMode, roundToTwo } from '../../utils/display-data';
+import { getFullFormatedTime } from '../../utils/time-converters';
 
 interface Props {
     match: Match
@@ -8,7 +9,7 @@ interface Props {
 
 const RecentMatchesCardItem: React.FC<Props> = ({ match }) => {
 
-    
+
 
     return (
         <section className="match-item">

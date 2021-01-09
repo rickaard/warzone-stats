@@ -98,7 +98,7 @@
     transform: scale(1.05);
 }
 
-form {
+.update-container form {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -108,7 +108,7 @@ form {
     justify-content: flex-end;
 }
 
-form input {
+.update-container form input {
     background: transparent;
     border: 1px solid var(--accent-color);
     border-radius: 23px;
@@ -118,11 +118,11 @@ form input {
     transition: width .5s ease-in-out;
 }
 
-form input.focused {
+.update-container form input.focused {
     width: 200px;
 }
 
-form .search-btn {
+.update-container form .search-btn {
     position: relative;
     font-size: 1.3rem;
     right: 30px;

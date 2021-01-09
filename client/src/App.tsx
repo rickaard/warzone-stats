@@ -19,7 +19,7 @@ import data from './testdata-recent.json';
 
 
 // helpers
-import { roundToTwo } from './utils/helper-functions';
+import { roundToTwo } from './utils/display-data';
 
 const getLabelText = (tab: ActiveType) => {
   if (tab === 'damageDone') {
@@ -39,7 +39,7 @@ function App() {
   // const { favoritePlayers, recentSearches } = useGlobalSearchContext();
   const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData>(data.recentMatches.data);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [showSearchPage, setShowSearchPage] = React.useState<boolean>(false);
+  const [showSearchPage, setShowSearchPage] = React.useState<boolean>(true);
 
 
   const changeActiveTab = (tab: ActiveType) => {

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import './SearchBar.css';
+import SearchSuggestions from './SearchSuggestions';
 
 interface Props {
     showSearchInstructions: boolean;
@@ -49,15 +50,13 @@ const SearchBar: React.FC<Props> = ({ showSearchInstructions = true }) => {
                 value={inputValue}
                 onChange={handleInputChange}
                 placeholder="Search for a Warzone player"
-                style={{
-                    borderBottomLeftRadius: isFormFocused ? '0px' : '6px',
-                    borderBottomRightRadius: isFormFocused ? '0px' : '6px'
-                }}
+                className={isFormFocused ? 'focused' : ''}
             />
-            {isFormFocused
-                ? <div style={{ width: '100%', height: '100px', background: '#fff' }}>Searchsuggestions</div>
+            <SearchSuggestions show={isFormFocused} />
+            {/* {isFormFocused
+                ? <SearchSuggestions show={isFormFocused}/>
                 : null
-            }
+            } */}
             {showSearchInstructions
                 ? <p className="search-instructions"><span>Search: </span>you have to search for an activision ID, e.g. Ghost#2934</p>
                 : null

@@ -7,7 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { ActiveType } from '../../types/interfaces';
 
 import './LineChart.css';
-import { getFormatedTime, getFullFormatedTime } from '../../utils/helper-functions';
+import { getFormatedTime, getFullFormatedTime } from '../../utils/time-converters';
 
 interface Props {
     recentData: any;
