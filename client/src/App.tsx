@@ -39,7 +39,7 @@ function App() {
   // const { favoritePlayers, recentSearches } = useGlobalSearchContext();
   const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData>(data.recentMatches.data);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [showSearchPage, setShowSearchPage] = React.useState<boolean>(true);
+  const [showSearchPage, setShowSearchPage] = React.useState<boolean>(false);
 
 
   const changeActiveTab = (tab: ActiveType) => {

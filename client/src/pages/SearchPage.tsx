@@ -1,13 +1,15 @@
 import * as React from 'react';
+import SearchBar from '../components/SearchContainer/SearchBar';
 
 import './SearchPage.css';
 
-interface Props {};
+interface Props { };
 
 const SearchPage: React.FC<Props> = () => {
     return (
-        <div className="searchpage-wrapper">
-            <h1>Searchpage</h1>
+        <div className="searchpage">
+            <h1>Warzone Stats</h1>
+            <SearchBar showSearchInstructions={true} />
         </div>
     );
 }
