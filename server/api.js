@@ -1,55 +1,91 @@
-const fetch = require("node-fetch");
-const { Headers } = require('node-fetch');
-
-// const FormData = require('form-data');
-// let formdata = new FormData();
-// formdata.append("username", process.env.COD_USERNAME);
-// formdata.append("password", process.env.COD_PASSWORD);
-// formdata.append("remember_me", "true");
-// formdata.append("_csrf", 'fCDpTHxrsh8iYurC1SrSMMaanU0LhzPupGluwCmQMnQRyDiVrl39PTVCIaSxym28');
-
-let myHeaders = new Headers();
-myHeaders.append('Cookie', `XSRF-TOKEN=fCDpTHxrsh8iYurC1SrSMMaanU0LhzPupGluwCmQMnQRyDiVrl39PTVCIaSxym28`)
-myHeaders.append('Cookie', `ACT_SSO_COOKIE=MzA0MjU0NjM3MzQwNTc3MDA0MDoxNTkzMjY3NzUzOTQ3OjM3Y2YwZWNkZGQ1MDA3YjJlNDkzZjQxNDQ1YWE0ZTY2; ACT_SSO_COOKIE_EXPIRY=1593267753947; atkn=eyJhbGciOiAiQTEyOEtXIiwgImVuYyI6ICJBMTI4R0NNIiwgImtpZCI6ICJ1bm9fcHJvZF9sYXNfMSJ9.acZStsq7xHV9P7mjiRswU_zpmEIktFYoNARAEKR63X4xmOuk9xBX7Q.7sZqHLtdTd7lzCN9.8ZaoYd8FTJBWzZaZ2Zv5_uxG5DmpPDS5QzGWmr5jT22QDcCkulKDfHG0hUWrf7b3rILURQWAYbzQdor22YpIEtJwtMpiHyFNONi5ai4cruNmuPeboimW17ljzvf0Cxto4N3AFg8H3QuSu1uAnR-yh57q41-qU52oPshl478gda36ORX5xlyv7l_yN8qqn0ItRzLMY36a5876n9y8r1WuLyMF_Kqo2sjd5OWQRgEZBmWXByfv0t2TEkOUVOFW5Ys-5qyM0LkIFkkt_Vu8d-kKotfnh9coQVhHaH9IpooTUfIKeMgWg5c23aMJE2VZGChkFeMYqEOCjewUV0F4VrQUg33ZXRzyEDqyzW70qBT9Z4FlRjfq6SCF4DRwUnUdE3QMknQKEghZ0mnNu6wWkCbC773kWZ6iacV3zvQC2HdLgYc5c9dCfYLi96moVVbcsp0hRmYzhIUW.uT3VKift5fr2_HUi_gZIJQ; ACT_SSO_REMEMBER_ME=MzA0MjU0NjM3MzQwNTc3MDA0MDokMmEkMTAkQkFPUHl6MmQ5U1JSQ0hid21ITWJmT21CQkVDWS9Yb08xVDhDTnk3YUZOQm9hWWM2bEQ1SDI; CRM_BLOB=eyJ2ZXIiOjEsInBsYXQiOnt9fQ; ACT_SSO_EVENT=LOGIN_FAILURE:1592065274220; XSRF-TOKEN=0rGPoUGCeeSm6eNVSq76HSHiSTtoGOzMiKnWnVsN7g-V9U6ptMhbSOZhr3_bcZDI; new_SiteId=cod; comid=cod; API_CSRF_TOKEN=afee77f6-85c6-4424-bda6-757a5ad153b7`)
-myHeaders.append('Cookie', `atkn=eyJhbGciOiAiQTEyOEtXIiwgImVuYyI6ICJBMTI4R0NNIiwgImtpZCI6ICJ1bm9fcHJvZF9sYXNfMSJ9.4PUXu9Bwf44G993Bbuf9uOgcCTFxdPuK98Iwuk0dgVHhkFT1HrO1-g.zsqGifE4N5Q90l_x.7mxf4uHlOpY-5nYU8bTOAPUzoAL9I9-ER5VutTddufbPQU3qebeBgYZJa9ubTulKhH2SthCS_IT5MlYx2wUbwVPlC2lGPuc-M2k5x_Ou4OpPpv6ARJ5rF3bxouZJkaKMTzZ1VDsd7ZdwjERwFwYiASr5hHJFQpThpeGPpEOzQ2IsXilibMdtHr1AsyukLL2Zvm-7iCrqwFp7CW0qqBzEEmAeGFcrEtzpu8GqZNtd4BFha_-eye-RTgl577uCqB5tY5vFyS221KjFtNl1ksLKrtK0GVCesLUEKM25KQHZVAczKPlI3aFmO_lsxJc1aT-BxPVHWGJc_ZkV5yCVMWNctxBwUeaUqVwkFjGgb8OWQbtsUqqkPAdhiYoFUjDdE5X5PoI-vDeBzrucX6pfHNmVXUnPF1lW457xTvxxCjZ9mj7kqeA3p9BdLbJo5bOzHYhHOtR5BMfd.DZ9DjFKJHERAlnF96giebQ`);
-
-const cod = {
-
-    login: async () => {
-        return await fetch('https://profile.callofduty.com/do_login?new_SiteId=cod', {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata
-        }); 
-    },
-
-    getPlayerData: async (player) => {
-        const playerName = player.replace('#', '%23')
-
-        return await fetch(`https://my.callofduty.com/api/papi-client/stats/cod/v1/title/mw/platform/battle/gamer/${playerName}/profile/type/wz`, {
-            method: 'GET',
-            headers: myHeaders
-        }).then(res => res.json())
-    },
-
-    getRecentMatches: async (player) => {
-        const playerName = player.replace('#', '%23')
-
-        return await fetch(`https://my.callofduty.com/api/papi-client/crm/cod/v2/title/mw/platform/battle/gamer/${playerName}/matches/wz/start/0/end/0/details`, {
-            method: 'GET',
-            headers: myHeaders
-        }).then(res => res.json());
-    },
-
-    getFriendsStats: async (player) => {
-        const playerName = player.replace('#', '%23')
-
-        return await fetch(`https://my.callofduty.com/api/papi-client/stats/cod/v1/title/mw/platform/battle/gamer/${playerName}/profile/friends/type/mp`, {
-            method: 'GET',
-            headers: myHeaders
-        }).then(res => res.json())
-    }
-
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-
-module.exports = cod;
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.cod = void 0;
+var node_fetch_1 = __importDefault(require("node-fetch"));
+var node_fetch_2 = require("node-fetch");
+require('dotenv').config();
+var myHeaders = new node_fetch_2.Headers();
+myHeaders.append('Cookie', "XSRF-TOKEN=" + process.env.XSRF_TOKEN);
+myHeaders.append('Cookie', "ACT_SSO_COOKIE=" + process.env.ACT_SSO_COOKIE + "; ACT_SSO_COOKIE_EXPIRY=1593267753947; atkn=" + process.env.ATKN + "; ACT_SSO_REMEMBER_ME=" + process.env.ACT_SSO_REMEMBER_ME + "; CRM_BLOB=eyJ2ZXIiOjEsInBsYXQiOnt9fQ; ACT_SSO_EVENT=LOGIN_FAILURE:1592065274220; XSRF-TOKEN=" + process.env.XSRF_TOKEN2 + "; new_SiteId=cod; comid=cod; API_CSRF_TOKEN=" + process.env.API_CSRF_TOKEN);
+myHeaders.append('Cookie', "atkn=" + process.env.ATKN_KEY);
+exports.cod = {
+    // login: async () => {
+    //     return await fetch('https://profile.callofduty.com/do_login?new_SiteId=cod', {
+    //         method: 'POST',
+    //         headers: myHeaders,
+    //     });
+    // },
+    getPlayerData: function (player) { return __awaiter(void 0, void 0, void 0, function () {
+        var response, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, node_fetch_1.default("https://my.callofduty.com/api/papi-client/stats/cod/v1/title/mw/platform/battle/gamer/" + player + "/profile/type/wz", {
+                        method: 'GET',
+                        headers: myHeaders
+                    })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    }); },
+    getRecentMatches: function (player) { return __awaiter(void 0, void 0, void 0, function () {
+        var response, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, node_fetch_1.default("https://my.callofduty.com/api/papi-client/crm/cod/v2/title/mw/platform/battle/gamer/" + player + "/matches/wz/start/0/end/0/details", {
+                        method: 'GET',
+                        headers: myHeaders
+                    })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    }); },
+};
