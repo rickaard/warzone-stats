@@ -11,6 +11,8 @@ app.get('/api', (_, res: Response) => {
     res.send({ message: 'works' });
 });
 
+// add api request 
+// https://www.npmjs.com/package/express-rate-limit
 app.post('/api/cod', async (req: Request, res: Response) => {
     const { codName } = req.body;
     console.log(codName);
