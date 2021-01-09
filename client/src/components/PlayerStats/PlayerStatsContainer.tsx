@@ -6,6 +6,7 @@ import ReactToolTip from 'react-tooltip';
 import PlayerStatsItemCard from './PlayerStatsItemCard';
 
 import './PlayerStats.css';
+import { useGlobalSearchContext } from '../../Store/SearchContext';
 
 interface Props {
     username: string;
@@ -13,11 +14,18 @@ interface Props {
 };
 
 const PlayerStatsContainer: React.FC<Props> = ({ username, toggleUpdate }) => {
-    const [isFav, setIsFav] = React.useState<boolean>(false);
+    // const [isFav, setIsFav] = React.useState<boolean>(false);
     const [isFocused, setIsFocused] = React.useState<boolean>(false);
+    const { favoritePlayers, dispatch } = useGlobalSearchContext();
+
+    const isFav = () => favoritePlayers?.includes(username);
+
+    React.useEffect(() => {
+        console.log('[PlayerStatsContainer.tsx] - favoritePlayers: ', favoritePlayers)
+    }, [favoritePlayers])
 
     const toggleFavorite = () => {
-        setIsFav(isFav => !isFav);
+        dispatch({ type: 'TOGGLE_FAVORITE', payload: username })
     }
 
     const toggleSearch = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -41,9 +49,12 @@ const PlayerStatsContainer: React.FC<Props> = ({ username, toggleUpdate }) => {
                 <div className="playerstats-wrapper--player_name">
                     <h1>{username}</h1>
                     <button
-                        className={`btn fav-btn ${isFav ? 'isFav' : ''}`}
+                        className={`btn fav-btn ${isFav() ? 'isFav' : ''}`}
                         data-tip={!isFav ? 'Add to favorite' : 'Remove from favorite'}
-                        onClick={toggleFavorite}>
+                        onClick={toggleFavorite}
+                        type="button"
+                    >
+
                         <AiOutlineStar />
                     </button>
                     <ReactToolTip place="right" delayShow={250} effect="solid" />
@@ -64,10 +75,10 @@ const PlayerStatsContainer: React.FC<Props> = ({ username, toggleUpdate }) => {
                     />
                     <button className="search-btn"><FiSearch /></button>
                 </form>
-            {/* <button className="btn btn-search" onClick={toggleSearch}><FiSearch /></button> */}
-            <button className="btn btn-accent" onClick={toggleUpdate}>update</button>
+                {/* <button className="btn btn-search" onClick={toggleSearch}><FiSearch /></button> */}
+                <button className="btn btn-accent" onClick={toggleUpdate}>update</button>
 
-        </div>
+            </div>
 
         </div >
     );

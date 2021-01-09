@@ -16,7 +16,10 @@ const initialSearchState: IState = {
     favoritePlayers: []
 }
 
-export const SearchContext = React.createContext<Partial<ContextProps>>(initialSearchState);
+export const SearchContext = React.createContext<ContextProps>({
+    ...initialSearchState,
+    dispatch: () => {}
+});
 
 
 export const SearchProvider: React.FC = ({ children }) => {
@@ -27,11 +30,11 @@ export const SearchProvider: React.FC = ({ children }) => {
         const favoriteList = localStorage.getItem('favorite-names');
         if (recentList) {
             const parsedRecentList = JSON.parse(recentList);
-            dispatch({ type: 'ADD_TO_RECENT', payload: parsedRecentList })
+            dispatch({ type: 'ADD_TO_RECENT_FROM_LOCALSTORAGE', payload: parsedRecentList })
         }
         if (favoriteList) {
             const parsedFavoriteList = JSON.parse(favoriteList);
-            dispatch({ type: 'ADD_TO_FAVORITE', payload: parsedFavoriteList })
+            dispatch({ type: 'ADD_TO_FAVORITE_FROM_LOCALSTORAGE', payload: parsedFavoriteList })
         }
     }, []);
 

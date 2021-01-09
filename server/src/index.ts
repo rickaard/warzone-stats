@@ -28,7 +28,7 @@ app.post('/api/cod', async (req: Request, res: Response) => {
         playerStats,
         recentMatches,
     }
-    
+
     if (result.playerStats.status === 'error') {
         return res.status(404).send({ status: "error", message: "No user found" });
     }

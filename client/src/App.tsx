@@ -1,9 +1,11 @@
 import * as React from 'react';
 
+import SearchPage from './pages/SearchPage';
 import LineChart from './components/LineChart/LineChart';
 import PlayerStatsContainer from './components/PlayerStats/PlayerStatsContainer';
 import Loader from './components/Loader/Loader';
 import RecentMatchesList from './components/RecentMatches/RecentMatchesList';
+
 
 // import { useGlobalSearchContext } from './Store/SearchContext';
 
@@ -37,6 +39,7 @@ function App() {
   // const { favoritePlayers, recentSearches } = useGlobalSearchContext();
   const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData>(data.recentMatches.data);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [showSearchPage, setShowSearchPage] = React.useState<boolean>(true);
 
 
   const changeActiveTab = (tab: ActiveType) => {
@@ -62,17 +65,27 @@ function App() {
     gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
 
     return {
-      labels: recentMatches.matches.map(i => i.utcStartSeconds),
+      labels: recentMatches.matches.map(i => i.utcStartSeconds).slice(0, 10),
       datasets: [{
         fill: 'start',
-        data: recentMatches.matches.map((i) => roundToTwo(i.playerStats[activeTab])),
+        data: recentMatches.matches.map((i) => roundToTwo(i.playerStats[activeTab])).slice(0, 10),
         label: getLabelText(activeTab),
         backgroundColor: gradient,
         borderColor: '#077ea3',
         borderWidth: 1
       }]
     }
-  }, [activeTab, recentMatches.matches])
+  }, [activeTab, recentMatches.matches]);
+
+  if (showSearchPage) {
+    return (
+      <div className="container">
+        <div className="middle-aligned">
+          <SearchPage />
+        </div>
+      </div>
+    )
+  }
 
   if (isLoading) {
     return (
@@ -86,10 +99,10 @@ function App() {
 
   return (
     <div className="App">
-      <div className="hero-wrapper">
-        <PlayerStatsContainer username="OJNAB#21824" toggleUpdate={toggleUpdate}/>
+      <div className="container">
+        <PlayerStatsContainer username="OJNAB#21824" toggleUpdate={toggleUpdate} />
         <LineChart recentData={chartData} activeTab={activeTab} changeActiveTab={changeActiveTab} />
-        <RecentMatchesList recentMatches={recentMatches.matches}/>
+        <RecentMatchesList recentMatches={recentMatches.matches} />
       </div>
     </div >
   );
