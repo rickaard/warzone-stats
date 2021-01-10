@@ -8,6 +8,7 @@ import RecentMatchesList from './components/RecentMatches/RecentMatchesList';
 
 
 // import { useGlobalSearchContext } from './Store/SearchContext';
+import useFetchPlayerData from './hooks/useFetchPlayerData';
 
 // types
 import { ActiveType } from "./types/interfaces";
@@ -38,8 +39,10 @@ function App() {
   const [activeTab, setActiveTab] = React.useState<ActiveType>('kills');
   // const { favoritePlayers, recentSearches } = useGlobalSearchContext();
   const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData>(data.recentMatches.data);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [showSearchPage, setShowSearchPage] = React.useState<boolean>(true);
+  // const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  // const [showSearchPage, setShowSearchPage] = React.useState<boolean>(true);
+  const { fetchPlayerData, isLoading, hasError, isDone, playerData, showSearchPage, errorMessage } = useFetchPlayerData();
+
 
 
   const changeActiveTab = (tab: ActiveType) => {
@@ -47,16 +50,16 @@ function App() {
   }
 
   const toggleUpdate = () => {
-    setIsLoading(true);
+    // setIsLoading(true);
   }
 
-  React.useEffect(() => {
-    if (isLoading) {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 600);
-    }
-  }, [isLoading])
+  // React.useEffect(() => {
+  //   if (isLoading) {
+  //     setTimeout(() => {
+  //       setIsLoading(false);
+  //     }, 600);
+  //   }
+  // }, [isLoading])
 
   const chartData = React.useCallback((canvas: HTMLCanvasElement) => {
     const ctx = canvas.getContext('2d');
@@ -77,11 +80,11 @@ function App() {
     }
   }, [activeTab, recentMatches.matches]);
 
-  if (showSearchPage) {
+  if (showSearchPage || hasError) {
     return (
       <div className="container">
         <div className="middle-aligned">
-          <SearchPage />
+          <SearchPage fetchPlayerData={fetchPlayerData} hasError={hasError} errorMessage={errorMessage}/>
         </div>
       </div>
     )

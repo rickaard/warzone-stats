@@ -1,24 +1,24 @@
 import * as React from 'react';
 
+
+
 import './SearchBar.css';
 import SearchSuggestions from './SearchSuggestions';
 
 interface Props {
     showSearchInstructions: boolean;
+    fetchPlayerData: (name: string) => void;
 };
 
-const SearchBar: React.FC<Props> = ({ showSearchInstructions = true }) => {
+const SearchBar: React.FC<Props> = ({ fetchPlayerData, showSearchInstructions = true }) => {
     const [inputValue, setInputValue] = React.useState<string>('');
     const formRef = React.useRef<HTMLFormElement | null>(null);
     const [isFormFocused, setIsFormFocused] = React.useState<boolean>(false);
 
     const handleOutsideFormClick = (event: Event) => {
         if (formRef.current?.contains(event.target as Node)) {
-            // console.log('[Searchbar.tsx] - klickat INNANFÖR form');
             return;
         }
-        // console.log('[Searchbar.tsx] - klickat UTANFÖR form');
-        // console.log('[Searchbar.tsx] - event target:', event.target);
         setIsFormFocused(false)
     }
 
@@ -32,7 +32,13 @@ const SearchBar: React.FC<Props> = ({ showSearchInstructions = true }) => {
 
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        if (!inputValue.trim()) {
+            return;
+        }
+
         console.log('[Search.tsx] - submitted: ', inputValue);
+        fetchPlayerData(inputValue);
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,10 +59,6 @@ const SearchBar: React.FC<Props> = ({ showSearchInstructions = true }) => {
                 className={isFormFocused ? 'focused' : ''}
             />
             <SearchSuggestions show={isFormFocused} />
-            {/* {isFormFocused
-                ? <SearchSuggestions show={isFormFocused}/>
-                : null
-            } */}
             {showSearchInstructions
                 ? <p className="search-instructions"><span>Search: </span>you have to search for an activision ID, e.g. Ghost#2934</p>
                 : null

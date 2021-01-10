@@ -3,13 +3,21 @@ import SearchBar from '../components/SearchContainer/SearchBar';
 
 import './SearchPage.css';
 
-interface Props { };
+interface Props {
+    fetchPlayerData: (name: string) => void;
+    hasError: boolean;
+    errorMessage: string;
+};
 
-const SearchPage: React.FC<Props> = () => {
+const SearchPage: React.FC<Props> = ({ fetchPlayerData, hasError, errorMessage }) => {
     return (
         <div className="searchpage">
             <h1>Warzone Stats</h1>
-            <SearchBar showSearchInstructions={true} />
+            <SearchBar showSearchInstructions={true} fetchPlayerData={fetchPlayerData} />
+            {hasError
+                ? <p className="error-msg">{errorMessage}</p>
+                : null
+            }
         </div>
     );
 }
