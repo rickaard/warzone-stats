@@ -1,7 +1,6 @@
 import * as React from 'react';
 import ReactToolTip from 'react-tooltip';
 import { AiOutlineStar } from 'react-icons/ai'
-// import { FiSearch } from 'react-icons/fi';
 
 import PlayerStatsItemCard from './PlayerStatsItemCard';
 
