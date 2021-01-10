@@ -39,11 +39,6 @@ export const SearchProvider: React.FC = ({ children }) => {
     }, []);
 
 
-    // React.useEffect(() => {
-    //     console.log('Favorite: ', state.favoritePlayers);
-    //     console.log('Recent: ', state.recentSearches);
-    // }, [state.favoritePlayers, state.recentSearches]);
-
 
 
     // ADD TO LOCALSTORAGE WHENEVER state.recentSearches changes

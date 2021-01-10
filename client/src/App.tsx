@@ -12,36 +12,36 @@ import useFetchPlayerData from './hooks/useFetchPlayerData';
 
 // types
 import { ActiveType } from "./types/interfaces";
-import { RecentMatchesData } from "./types/recent-matches";
+// import { RecentMatchesData } from "./types/recent-matches";
 
 
 // data
-import data from './testdata-recent.json';
+// import data from './testdata-recent.json';
 
 
 // helpers
-import { roundToTwo } from './utils/display-data';
+// import { roundToTwo } from './utils/display-data';
 
-const getLabelText = (tab: ActiveType) => {
-  if (tab === 'damageDone') {
-    return 'Damage done'
-  }
-  if (tab === 'kdRatio') {
-    return 'K/D Ratio'
-  }
-  if (tab === 'kills') {
-    return 'Kills'
-  }
-}
+// const getLabelText = (tab: ActiveType) => {
+//   if (tab === 'damageDone') {
+//     return 'Damage done'
+//   }
+//   if (tab === 'kdRatio') {
+//     return 'K/D Ratio'
+//   }
+//   if (tab === 'kills') {
+//     return 'Kills'
+//   }
+// }
 
 
 function App() {
   const [activeTab, setActiveTab] = React.useState<ActiveType>('kills');
   // const { favoritePlayers, recentSearches } = useGlobalSearchContext();
-  const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData>(data.recentMatches.data);
+  // const [recentMatches, setRecentMatches] = React.useState<RecentMatchesData>(data.recentMatches.data);
   // const [isLoading, setIsLoading] = React.useState<boolean>(false);
   // const [showSearchPage, setShowSearchPage] = React.useState<boolean>(true);
-  const { fetchPlayerData, isLoading, hasError, isDone, playerData, showSearchPage, errorMessage } = useFetchPlayerData();
+  const { fetchPlayerData, isLoading, hasError, playerData, errorMessage, recentMatches } = useFetchPlayerData();
 
 
 
@@ -51,7 +51,13 @@ function App() {
 
   const toggleUpdate = () => {
     // setIsLoading(true);
-  }
+    console.log('[App.tsx] - toggleUpdate!!!!');
+  };
+
+  // React.useEffect(() => {
+  //   console.log('[App.tsx] - recentMatches: ', recentMatches);
+  //   console.log('[App.tsx] - playerData: ', playerData);
+  // }, [recentMatches, playerData])
 
   // React.useEffect(() => {
   //   if (isLoading) {
@@ -61,34 +67,34 @@ function App() {
   //   }
   // }, [isLoading])
 
-  const chartData = React.useCallback((canvas: HTMLCanvasElement) => {
-    const ctx = canvas.getContext('2d');
-    const gradient = ctx?.createLinearGradient(0, 0, 0, 250);
-    gradient?.addColorStop(0, 'rgba(14,68,112,1)')
-    gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
+  // const chartData = React.useCallback((canvas: HTMLCanvasElement) => {
+  //   const ctx = canvas.getContext('2d');
+  //   const gradient = ctx?.createLinearGradient(0, 0, 0, 250);
+  //   gradient?.addColorStop(0, 'rgba(14,68,112,1)')
+  //   gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
 
-    return {
-      labels: recentMatches.matches.map(i => i.utcStartSeconds).slice(0, 10),
-      datasets: [{
-        fill: 'start',
-        data: recentMatches.matches.map((i) => roundToTwo(i.playerStats[activeTab])).slice(0, 10),
-        label: getLabelText(activeTab),
-        backgroundColor: gradient,
-        borderColor: '#077ea3',
-        borderWidth: 1
-      }]
-    }
-  }, [activeTab, recentMatches.matches]);
+  //   return {
+  //     labels: recentMatches.matches.map(i => i.utcStartSeconds).slice(0, 10),
+  //     datasets: [{
+  //       fill: 'start',
+  //       data: recentMatches.matches.map((i) => roundToTwo(i.playerStats[activeTab])).slice(0, 10),
+  //       label: getLabelText(activeTab),
+  //       backgroundColor: gradient,
+  //       borderColor: '#077ea3',
+  //       borderWidth: 1
+  //     }]
+  //   }
+  // }, [activeTab, recentMatches.matches]);
 
-  if (showSearchPage || hasError) {
-    return (
-      <div className="container">
-        <div className="middle-aligned">
-          <SearchPage fetchPlayerData={fetchPlayerData} hasError={hasError} errorMessage={errorMessage}/>
-        </div>
-      </div>
-    )
-  }
+  // if (showSearchPage || hasError) {
+  //   return (
+  //     <div className="container">
+  //       <div className="middle-aligned">
+  //         <SearchPage fetchPlayerData={fetchPlayerData} hasError={hasError} errorMessage={errorMessage} />
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   if (isLoading) {
     return (
@@ -100,15 +106,27 @@ function App() {
     )
   }
 
+  if (recentMatches && playerData) {
+    return (
+      <div className="App">
+        <div className="container">
+          <PlayerStatsContainer toggleUpdate={fetchPlayerData} playerData={playerData}/>
+          <LineChart recentMatches={recentMatches} activeTab={activeTab} changeActiveTab={changeActiveTab} />
+          <RecentMatchesList recentMatches={recentMatches.matches} />
+        </div>
+      </div >
+    );
+  }
+
   return (
-    <div className="App">
-      <div className="container">
-        <PlayerStatsContainer username="OJNAB#21824" toggleUpdate={toggleUpdate} />
-        <LineChart recentData={chartData} activeTab={activeTab} changeActiveTab={changeActiveTab} />
-        <RecentMatchesList recentMatches={recentMatches.matches} />
+    <div className="container">
+      <div className="middle-aligned">
+        <SearchPage fetchPlayerData={fetchPlayerData} hasError={hasError} errorMessage={errorMessage} />
       </div>
-    </div >
-  );
+    </div>
+  )
+
+
 }
 
 export default App;

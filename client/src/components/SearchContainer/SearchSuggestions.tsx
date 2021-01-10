@@ -1,6 +1,7 @@
 import * as React from 'react';
+
 import { BiTime } from 'react-icons/bi';
-import { AiOutlineStar } from 'react-icons/ai'
+import { BsFillStarFill } from 'react-icons/bs';
 import { FaTimes } from 'react-icons/fa';
 
 
@@ -10,21 +11,20 @@ import SuggestionsButton from './SuggestionsButton';
 
 interface Props {
     show: boolean;
+    fetchPlayerData: (name: string) => void;
 };
 
 export type ShowTabType = 'recent' | 'favorite';
 
-const SearchSuggestions: React.FC<Props> = ({ show }) => {
+const SearchSuggestions: React.FC<Props> = ({ show, fetchPlayerData }) => {
     const [showType, setShowType] = React.useState<ShowTabType>('recent');
     const { favoritePlayers, recentSearches, dispatch } = useGlobalSearchContext();
 
     const isInFav = (name: string) => favoritePlayers.includes(name);
 
-    const removeFromFavorite = (name: string) => console.log('Remove player: ', name);
+    const toggleFavorite = (name: string) => dispatch({ type: 'TOGGLE_FAVORITE', payload: name });
 
-    const addToFavorite = (name: string) => dispatch({ type: 'TOGGLE_FAVORITE', payload: name });
 
-    const fetchPlayerData = (name: string) => console.log('Fetch player data: ', name);
 
     const displaySearchList = (type: ShowTabType) => {
         if (type === 'recent') {
@@ -36,7 +36,7 @@ const SearchSuggestions: React.FC<Props> = ({ show }) => {
                             ? recentSearches.map((name: string, index: number) => (
                                 <li key={index} className={isInFav(name) ? 'isFav' : ''}>
                                     <span onClick={() => fetchPlayerData(name)}>{name}</span>
-                                    <AiOutlineStar onClick={() => addToFavorite(name)} />
+                                    <BsFillStarFill onClick={() => toggleFavorite(name)} />
                                 </li>
                             ))
                             : null
@@ -54,7 +54,7 @@ const SearchSuggestions: React.FC<Props> = ({ show }) => {
                             ? favoritePlayers.map((name: string, index: number) => (
                                 <li key={index}>
                                     <span onClick={() => fetchPlayerData(name)}>{name}</span>
-                                    <FaTimes onClick={() => removeFromFavorite(name)} />
+                                    <FaTimes onClick={() => toggleFavorite(name)} />
                                 </li>
                             ))
                             : null
@@ -73,7 +73,7 @@ const SearchSuggestions: React.FC<Props> = ({ show }) => {
                     <BiTime />
                 </SuggestionsButton>
                 <SuggestionsButton isActive={showType === 'favorite'} setShowType={setShowType} type='favorite'>
-                    <AiOutlineStar />
+                    <BsFillStarFill />
                 </SuggestionsButton>
             </div>
             <div className="player-names">

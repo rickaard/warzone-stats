@@ -37,7 +37,6 @@ const SearchBar: React.FC<Props> = ({ fetchPlayerData, showSearchInstructions = 
             return;
         }
 
-        console.log('[Search.tsx] - submitted: ', inputValue);
         fetchPlayerData(inputValue);
     };
 
@@ -58,7 +57,7 @@ const SearchBar: React.FC<Props> = ({ fetchPlayerData, showSearchInstructions = 
                 placeholder="Search for a Warzone player"
                 className={isFormFocused ? 'focused' : ''}
             />
-            <SearchSuggestions show={isFormFocused} />
+            <SearchSuggestions show={isFormFocused} fetchPlayerData={fetchPlayerData}/>
             {showSearchInstructions
                 ? <p className="search-instructions"><span>Search: </span>you have to search for an activision ID, e.g. Ghost#2934</p>
                 : null

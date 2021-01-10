@@ -15,7 +15,6 @@ app.get('/api', (_, res: Response) => {
 // https://www.npmjs.com/package/express-rate-limit
 app.post('/api/cod', async (req: Request, res: Response) => {
     const { codName } = req.body;
-    console.log(codName);
     if (!codName) {
         return res.status(404).send({ status: "error", message: "No username provided" });
     }

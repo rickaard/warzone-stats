@@ -36,9 +36,12 @@ const useFetchPlayerData = () => {
             if (response.status >= 300) {
                 throw new CustomError('Error while fetching playerdata. Try again later.');
             }
-            // DISPATCH TO ADD NEW PLAYER TO RECENT SEARCHES
             const result = await response.json();
-            console.log(result);
+
+            // only add a new name to the recent searches if the fetching was successfull, i.e there's a user with that name
+            dispatch({ type: 'ADD_TO_RECENT', payload: name });
+            setRecentMatches(result.recentMatches.data);
+            setPlayerData(result.playerStats.data)
             setFetchingStatus('done');
         }
         catch (err) {
@@ -48,7 +51,7 @@ const useFetchPlayerData = () => {
             } else {
                 setErrorMessage('Something went wrong. Try again later.');
             }
-            console.log('[useFetchPlayerData.tsx] fetching error:', err);
+            // console.log('[useFetchPlayerData.tsx] fetching error:', err);
         }
 
     };

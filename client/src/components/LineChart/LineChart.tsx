@@ -5,15 +5,15 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // types
 import { ActiveType } from '../../types/interfaces';
+import { RecentMatchesData } from '../../types/recent-matches';
 
 import './LineChart.css';
-import { getFormatedTime, getFullFormatedTime } from '../../utils/time-converters';
 
-interface Props {
-    recentData: any;
-    activeTab: string;
-    changeActiveTab: (tab: ActiveType) => void;
-};
+// helpers
+import { getFormatedTime, getFullFormatedTime } from '../../utils/time-converters';
+import { roundToTwo } from '../../utils/display-data';
+
+
 
 const options = {
     responsive: true,
@@ -59,16 +59,64 @@ const options = {
             formatter: (value: { x: number, y: number }) => value.y,
             color: '#fff',
             align: 'end',
-            offset: 4,
+            offset: 3,
             fontWeight: 500,
             font: {
                 weight: 'bold'
             }
         }
     }
+};
+
+const getLabelText = (tab: ActiveType): string | void => {
+    if (tab === 'damageDone') {
+        return 'Damage done'
+    }
+    if (tab === 'kdRatio') {
+        return 'K/D Ratio'
+    }
+    if (tab === 'kills') {
+        return 'Kills'
+    }
+    return;
 }
 
-const LineChart: React.FC<Props> = ({ recentData, activeTab, changeActiveTab }) => {
+interface Props {
+    activeTab: ActiveType;
+    changeActiveTab: (tab: ActiveType) => void;
+    recentMatches: RecentMatchesData;
+};
+
+const LineChart: React.FC<Props> = ({ recentMatches, activeTab, changeActiveTab }) => {
+
+    const chartData = React.useCallback((canvas: HTMLCanvasElement) => {
+        const ctx = canvas.getContext('2d');
+        const gradient = ctx?.createLinearGradient(0, 0, 0, 250);
+        gradient?.addColorStop(0, 'rgba(14,68,112,1)')
+        gradient?.addColorStop(1, 'rgba(14,68,112,.05)')
+
+        return {
+            labels: recentMatches.matches.map(i => i.utcStartSeconds).slice(0, 12),
+            datasets: [{
+                fill: 'start',
+                data: recentMatches.matches.map((i) => {
+                    // sometimes the warzone API does not provide a KDA
+                    if (!i.playerStats[activeTab]) {
+                        const deaths = i.playerStats.deaths > 0 ? i.playerStats.deaths : 1;
+                        const kda = i.playerStats.kills / deaths;
+                        return roundToTwo(kda);
+                    }
+                    return roundToTwo(i.playerStats[activeTab])
+                }).slice(0, 12),
+                label: getLabelText(activeTab),
+                backgroundColor: gradient,
+                borderColor: '#077ea3',
+                borderWidth: 1
+            }]
+        }
+    }, [activeTab, recentMatches.matches]);
+
+
     return (
         <div className="linechart-wrapper">
             <div className="linechart-wrapper--tabs">
@@ -77,7 +125,7 @@ const LineChart: React.FC<Props> = ({ recentData, activeTab, changeActiveTab }) 
                 <span onClick={() => changeActiveTab('kdRatio')} role="button" className={activeTab === 'kdRatio' ? 'active' : ''}>K/D</span>
             </div>
             <Line
-                data={recentData}
+                data={chartData}
                 options={options}
                 width={1200}
                 height={500}

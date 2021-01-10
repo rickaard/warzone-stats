@@ -16,22 +16,38 @@ export const searchReducer = (state: IState, action: ActionType) => {
             }
 
         case 'ADD_TO_RECENT':
+            // if the name is allready in recent searches -> just return the state and do nothing else
+            const isInRecent = state.recentSearches.includes(action.payload);
+            if (isInRecent) {
+                return state;
+            }
+
+            const updatedRecentList = [...state.recentSearches];
+            // if recent searches list allready contains 5 names -> remove the last in the list
+            if (updatedRecentList.length >= 5) {
+                updatedRecentList.pop();
+            }
+            // add the most recent search to the start of list
+            updatedRecentList.unshift(action.payload);
             return {
                 ...state,
-                recentSearches: [...state.recentSearches, action.payload]
+                recentSearches: updatedRecentList
             }
+
 
         case 'TOGGLE_FAVORITE':
             const isInFavorites = state.favoritePlayers.includes(action.payload);
+
+            let updatedFavoritList;
             if (isInFavorites) {
-                return {
-                    ...state,
-                    favoritePlayers: state.favoritePlayers.filter(name => name !== action.payload)
-                }
+                updatedFavoritList = state.favoritePlayers.filter(name => name !== action.payload);
+            } else {
+                updatedFavoritList = [...state.favoritePlayers, action.payload];
             }
+
             return {
                 ...state,
-                favoritePlayers: [...state.recentSearches, action.payload]
+                favoritePlayers: updatedFavoritList
             }
 
         case 'GET_RECENT':
