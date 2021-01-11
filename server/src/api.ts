@@ -1,10 +1,14 @@
 import fetch from "node-fetch";
 import { Headers } from 'node-fetch';
+// import path from 'path';
 
-require('dotenv').config();
+// require('dotenv').config();
+// import dotenv from 'dotenv';
+// dotenv.config({ debug: true });
+
 
 let myHeaders = new Headers();
-myHeaders.append('Cookie', `XSRF-TOKEN=${process.env.XSRF_TOKEN}`)
+myHeaders.append('Cookie', `XSRF-TOKEN=${process.env.XSRF_TOKEN!}`)
 myHeaders.append('Cookie', `ACT_SSO_COOKIE=${process.env.ACT_SSO_COOKIE}; ACT_SSO_COOKIE_EXPIRY=1593267753947; atkn=${process.env.ATKN}; ACT_SSO_REMEMBER_ME=${process.env.ACT_SSO_REMEMBER_ME}; CRM_BLOB=eyJ2ZXIiOjEsInBsYXQiOnt9fQ; ACT_SSO_EVENT=LOGIN_FAILURE:1592065274220; XSRF-TOKEN=${process.env.XSRF_TOKEN2}; new_SiteId=cod; comid=cod; API_CSRF_TOKEN=${process.env.API_CSRF_TOKEN}`)
 myHeaders.append('Cookie', `atkn=${process.env.ATKN_KEY}`);
 

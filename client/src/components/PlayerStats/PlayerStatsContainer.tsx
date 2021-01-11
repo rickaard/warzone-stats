@@ -27,9 +27,9 @@ const PlayerStatsContainer: React.FC<Props> = ({ toggleUpdate, playerData }) => 
 
     const isFav = () => favoritePlayers?.includes(playerData.username);
 
-    React.useEffect(() => {
-        console.log('[PlayerStatsContainer.tsx] - playerStats: ', playerData)
-    }, [playerData])
+    // React.useEffect(() => {
+    //     console.log('[PlayerStatsContainer.tsx] - playerStats: ', playerData)
+    // }, [playerData])
 
     const toggleFavorite = () => {
         dispatch({ type: 'TOGGLE_FAVORITE', payload: playerData.username })
