@@ -56,6 +56,7 @@ const SearchBar: React.FC<Props> = ({ fetchPlayerData, showSearchInstructions = 
                 onChange={handleInputChange}
                 placeholder="Search for a Warzone player"
                 className={isFormFocused ? 'focused' : ''}
+                autoComplete="off"
             />
             <SearchSuggestions show={isFormFocused} fetchPlayerData={fetchPlayerData}/>
             {showSearchInstructions
