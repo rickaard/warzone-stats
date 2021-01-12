@@ -7,6 +7,7 @@ export const brMode = (mode: string) => {
     if (mode === 'br_mini_miniroyale') return 'Mini Royale';
     if (mode === 'br_dmz_plunquad') return 'Plunder Quads';
     if (mode === 'br_dmz_plnbld') return 'Blood Money';
+    if (mode === 'br_rebirth_rbrthtrios') return 'Resurgence Trios';
 
     return 'Unknown mode';
 };

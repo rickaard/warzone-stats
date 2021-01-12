@@ -108,3 +108,18 @@
 .content-item .type--stats {
     font-size: .8rem;
 }
+
+@media screen and (max-width: 850px) {
+    .recent-matches--wrapper {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .recent-matches--wrapper {
+        width: 95%;
+    }
+    .match-item .content-row {
+        padding: 0 .5rem;
+    }
+}
