@@ -12,6 +12,7 @@ import useFetchPlayerData from './hooks/useFetchPlayerData';
 
 // types
 import { ActiveType } from "./types/interfaces";
+import PlayedMatchesContainer from './components/PlayedMatchesStats/PlayedMatchesContainer';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <div className="container">
           <PlayerStatsContainer toggleUpdate={fetchPlayerData} playerData={playerData}/>
           <LineChart recentMatches={recentMatches} activeTab={activeTab} changeActiveTab={changeActiveTab} />
+          <PlayedMatchesContainer />
           <RecentMatchesList recentMatches={recentMatches.matches} />
         </div>
       </div >

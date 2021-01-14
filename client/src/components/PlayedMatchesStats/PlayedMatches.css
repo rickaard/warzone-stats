@@ -1,0 +1,33 @@
+.played-matches--container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 75%;
+    margin: 4rem auto;
+}
+
+.played-matches--card {
+    /* flex: 1; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    width: 20%;
+    background: #1a1c2b;
+    border-radius: 6px;
+    padding: 1.5rem 0;
+    /* margin: 0 1rem 1rem 0; */
+    /* color: var(--accent-color); */
+}
+
+.played-matches--card h5 {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.played-matches--card p {
+    color: var(--accent-color);
+    font-weight: bold;
+}
