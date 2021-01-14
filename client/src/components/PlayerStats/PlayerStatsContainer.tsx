@@ -49,7 +49,7 @@ const PlayerStatsContainer: React.FC<Props> = ({ toggleUpdate, playerData }) => 
     // }
 
     return (
-        <div className="playerstats-wrapper">
+        <section className="playerstats-wrapper">
 
             <div className="playerstats-wrapper--player">
 
@@ -57,7 +57,7 @@ const PlayerStatsContainer: React.FC<Props> = ({ toggleUpdate, playerData }) => 
                     <h1>{playerData.username}</h1>
                     <button
                         className={`btn fav-btn ${isFav() ? 'isFav' : ''}`}
-                        data-tip={!isFav ? 'Add to favorite' : 'Remove from favorite'}
+                        data-tip={isFav() ? 'Remove from favorite' : 'Add to favorite'}
                         onClick={toggleFavorite}
                         type="button"
                     >
@@ -87,7 +87,7 @@ const PlayerStatsContainer: React.FC<Props> = ({ toggleUpdate, playerData }) => 
 
             </div>
 
-        </div >
+        </section>
     );
 }
 

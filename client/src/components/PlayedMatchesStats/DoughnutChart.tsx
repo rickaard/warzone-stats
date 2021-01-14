@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Doughnut } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { getDoughtPieceColor } from '../../utils/display-data';
 
 
 const doughnutOptions = {
@@ -14,7 +15,7 @@ const doughnutOptions = {
     },
     elements: {
         arc: {
-            borderWidth: 5,
+            borderWidth: 3,
             borderColor: '#1a1c2b',
         }
     },
@@ -29,9 +30,10 @@ const doughnutOptions = {
 
 interface Props {
     playedData: [number, number];
+    doughnutPieceColor: string;
 };
 
-const DoughnutChart: React.FC<Props> = ({ playedData }) => {
+const DoughnutChart: React.FC<Props> = ({ playedData, doughnutPieceColor}) => {
 
     const getDoughnoutData = React.useCallback((canvas: HTMLCanvasElement) => {
         // const ctx = canvas.getContext('2d');
@@ -55,11 +57,12 @@ const DoughnutChart: React.FC<Props> = ({ playedData }) => {
             datasets: [
                 {
                     data: playedData,
-                    backgroundColor: ['#808080', '#077ea3'],
+                    // backgroundColor: ['#ffffff1f', '#ffd700'],
+                    backgroundColor: ['#ffffff1f', doughnutPieceColor],
                 },
             ],
         };
-    }, [playedData])
+    }, [playedData, doughnutPieceColor])
 
     return (
         <div className="dougnut-wrapper">

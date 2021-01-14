@@ -13,11 +13,11 @@ const RecentMatchesContainer: React.FC<Props> = ({ recentMatches }) => {
 
 
     return (
-        <div className="recent-matches--wrapper">
+        <section className="recent-matches--wrapper">
             {recentMatches.map(match => {
                 return <RecentMatchesCardItem match={match} key={match.matchID} />
             })}
-        </div>
+        </section>
     );
 }
 

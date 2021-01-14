@@ -1,10 +1,18 @@
+.matches-history-wrapper {
+    width: 75%;
+    margin: 4rem auto;
+}
+
+.matches-history-wrapper h5 {
+    margin-bottom: .1rem;
+    color: var(--secondary-color);
+}
+
 .played-matches--container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 75%;
-    margin: 4rem auto;
 }
 
 .played-matches--card {
@@ -23,11 +31,33 @@
 }
 
 .played-matches--card h5 {
-    color: #fff;
+    color: var(--secondary-color);
     text-transform: uppercase;
 }
 
 .played-matches--card p {
-    color: var(--accent-color);
+    color: var(--primary-color);
     font-weight: bold;
+}
+
+@media screen and (max-width: 850px) {
+    .matches-history-wrapper {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .matches-history-wrapper {
+        width: 95%;
+    }
+    .played-matches--card {
+        width: 48%;
+    }
+    .played-matches--card:nth-child(1),
+    .played-matches--card:nth-child(2) {
+        margin-bottom: 1rem;
+    }
+    .doughnut-wrapper {
+        margin: 0 auto;
+    }
 }

@@ -8,6 +8,8 @@ export const brMode = (mode: string) => {
     if (mode === 'br_dmz_plunquad') return 'Plunder Quads';
     if (mode === 'br_dmz_plnbld') return 'Blood Money';
     if (mode === 'br_rebirth_rbrthtrios') return 'Resurgence Trios';
+    if (mode === 'br_rebirth_rbrthquad') return 'Resurgence Trios';
+    if (mode === 'br_brbbsolo') return 'BR Buyback Solos'
 
     return 'Unknown mode';
 };
@@ -34,4 +36,21 @@ export const addOrdinalNumberSuffix = (num: number) => {
 
 export const roundToTwo = (num: number) => {
     return Math.round((num + Number.EPSILON) * 100) / 100
+}
+
+export const getDoughtPieceColor = (num: number): string => {
+    // Get fitting color to the Doughnut Chart depending on placement
+    if (num === 1) return '#fdd709';
+    if (num <= 5) return '#044604';
+    if (num <= 10) return '#093a6f';
+    if (num <= 25) return '#795108';
+    return '#fff';
+}
+
+export const getPlacementCardClassName = (num: number): string => {
+    if (num === 1) return 'win';
+    if (num <= 5) return 'top5';
+    if (num <= 10) return 'top10';
+    if (num <= 25) return 'top25';
+    return '';
 }

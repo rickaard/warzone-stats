@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Match } from '../../types/recent-matches';
-import { addOrdinalNumberSuffix, brMode, roundToTwo } from '../../utils/display-data';
+import { addOrdinalNumberSuffix, brMode, getPlacementCardClassName, roundToTwo } from '../../utils/display-data';
 import { getFullFormatedTime } from '../../utils/time-converters';
 
 interface Props {
@@ -26,7 +26,8 @@ const RecentMatchesCardItem: React.FC<Props> = ({ match }) => {
                 <h5>{getFullFormatedTime(match.utcStartSeconds)}</h5>
             </div>
             <div className="content-row">
-                <div className={`content-item content-row--placement ${match.playerStats.teamPlacement <= 5 ? 'gold' : match.playerStats.teamPlacement <= 10 ? 'silver' : ''}`}>
+                {/* <div className={`content-item content-row--placement ${match.playerStats.teamPlacement <= 5 ? 'gold' : match.playerStats.teamPlacement <= 10 ? 'silver' : ''}`}> */}
+                <div className={`content-item content-row--placement ${getPlacementCardClassName(match.playerStats.teamPlacement)}`}>
                     {/* In some cases placement data is not provided from warzone API */}
                     {match.playerStats.teamPlacement
                         ? (

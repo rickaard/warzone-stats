@@ -118,7 +118,7 @@ const LineChart: React.FC<Props> = ({ recentMatches, activeTab, changeActiveTab 
 
 
     return (
-        <div className="linechart-wrapper">
+        <section className="linechart-wrapper">
             <div className="linechart-wrapper--tabs">
                 <span onClick={() => changeActiveTab('kills')} role="button" className={activeTab === 'kills' ? 'active' : ''}>Kills</span>
                 <span onClick={() => changeActiveTab('damageDone')} role="button" className={activeTab === 'damageDone' ? 'active' : ''}>Damage</span>
@@ -131,7 +131,7 @@ const LineChart: React.FC<Props> = ({ recentMatches, activeTab, changeActiveTab 
                 height={500}
                 plugins={[ChartDataLabels]}
             />
-        </div>
+        </section>
     );
 }
 
