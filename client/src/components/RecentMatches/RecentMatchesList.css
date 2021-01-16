@@ -98,7 +98,7 @@
 .content-row--placement .big-text {
     font-size: 1rem;
     margin-right: 0.1rem;
-    font-weight: bold;
+    /* font-weight: bold; */
     transform: skew(26deg);
 }
 

@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import { Doughnut } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { getDoughtPieceColor } from '../../utils/display-data';
-
 
 const doughnutOptions = {
     responsive: true,
@@ -33,31 +31,14 @@ interface Props {
     doughnutPieceColor: string;
 };
 
-const DoughnutChart: React.FC<Props> = ({ playedData, doughnutPieceColor}) => {
+const DoughnutChart: React.FC<Props> = ({ playedData, doughnutPieceColor }) => {
 
     const getDoughnoutData = React.useCallback((canvas: HTMLCanvasElement) => {
-        // const ctx = canvas.getContext('2d');
-        // const width = canvas.width;
-        // const height = canvas.height;
-
-        // const fontSize = (height / 70).toFixed(2);
-        // ctx!.font = fontSize + "em sans-serif";
-        // ctx!.textBaseline = "middle";
-
-        // // const text = playedData[1].toString();
-        // const text = "213";
-        // const textY = Math.round((width - ctx!.measureText(text).width) / 2);
-        // const textX = height / 2;
-
-        // ctx?.fillText(text, textX, textY);
-        // ctx!.save();
-
-
+ 
         return {
             datasets: [
                 {
                     data: playedData,
-                    // backgroundColor: ['#ffffff1f', '#ffd700'],
                     backgroundColor: ['#ffffff1f', doughnutPieceColor],
                 },
             ],
@@ -66,6 +47,9 @@ const DoughnutChart: React.FC<Props> = ({ playedData, doughnutPieceColor}) => {
 
     return (
         <div className="dougnut-wrapper">
+            <div className="centered-value">
+                <h6>{(playedData[1] / playedData[0] * 100).toFixed(1)}%</h6>
+            </div>
             <Doughnut
                 data={getDoughnoutData}
                 options={doughnutOptions}

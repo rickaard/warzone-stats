@@ -38,19 +38,20 @@ export const roundToTwo = (num: number) => {
     return Math.round((num + Number.EPSILON) * 100) / 100
 }
 
-export const getDoughtPieceColor = (num: number): string => {
-    // Get fitting color to the Doughnut Chart depending on placement
-    if (num === 1) return '#fdd709';
-    if (num <= 5) return '#044604';
-    if (num <= 10) return '#093a6f';
-    if (num <= 25) return '#795108';
-    return '#fff';
-}
+// not used
+// export const getDoughtPieceColor = (num: number): string => {
+//     // Get fitting color to the Doughnut Chart depending on placement
+//     if (num === 1) return '#fdd709';
+//     if (num <= 5) return '#044604';
+//     if (num <= 10) return '#093a6f';
+//     if (num <= 25) return '#795108';
+//     return '#fff';
+// }
 
 export const getPlacementCardClassName = (num: number): string => {
     if (num === 1) return 'win';
-    if (num <= 5) return 'top5';
-    if (num <= 10) return 'top10';
-    if (num <= 25) return 'top25';
+    // if (num <= 5) return 'top5';
+    // if (num <= 10) return 'top10';
+    // if (num <= 25) return 'top25';
     return '';
 }

@@ -25,7 +25,8 @@
     color: #fff;
 }
 
-.search-btn--container {
+.search-btn--container,
+.refresh-btn--container {
     border: 1px solid var(--accent-color);
     border-radius: 50%;
     padding: .5rem;
@@ -36,7 +37,8 @@
     margin-right: .5rem;
 }
 
-.search-btn--container .search-btn {
+.search-btn--container .search-btn,
+.refresh-btn--container .refresh-btn {
     color: var(--accent-color);
     font-weight: bold;
     background: transparent;
@@ -47,8 +49,13 @@
     width: 21px;
 }
 
-.search-btn--container .search-btn:hover {
+.search-btn--container .search-btn:hover,
+.refresh-btn--container .refresh-btn:hover {
     color: var(--primary-color);
+}
+
+.mobile-show {
+    display: none;
 }
 
 .search-form--container {
@@ -174,6 +181,19 @@
 
 .search-form--container .search-suggestions .player-names li.isFav svg {
     color: #c8a905;
+}
+
+@media screen and (max-width: 600px) {
+    .update-container {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+    .mobile-show {
+        display: flex;
+    }
+    .mobile-hide {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 500px) {

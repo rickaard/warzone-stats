@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { FiSearch } from 'react-icons/fi';
+import { FiRefreshCcw } from 'react-icons/fi';
 import SearchSuggestions from '../SearchContainer/SearchSuggestions';
 
 import './SearchAndUpdate.css';
@@ -66,7 +67,10 @@ const SearchAndUpdateComponents: React.FC<Props> = ({ toggleUpdate, username }) 
             </div>
 
 
-            <button className="btn btn-accent" onClick={() => toggleUpdate(username)}>update</button>
+            <button className="btn btn-accent mobile-hide" onClick={() => toggleUpdate(username)}>update</button>
+            <div className="refresh-btn--container mobile-show">
+                <button className="refresh-btn" onClick={() => toggleUpdate(username)}><FiRefreshCcw /></button>
+            </div>
 
         </div>
     );

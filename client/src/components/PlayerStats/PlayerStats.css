@@ -86,3 +86,10 @@
         max-width: 200px;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .playerstats-wrapper {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+}

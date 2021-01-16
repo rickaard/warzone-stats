@@ -37,6 +37,16 @@ function App() {
     )
   }
 
+  if (hasError) {
+    return (
+      <div className="container">
+        <div className="middle-aligned">
+          <SearchPage fetchPlayerData={fetchPlayerData} hasError={hasError} errorMessage={errorMessage} />
+        </div>
+      </div>
+    )
+  }
+
   if (recentMatches && playerData) {
     return (
       <div className="App">
