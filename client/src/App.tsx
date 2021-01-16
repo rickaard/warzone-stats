@@ -13,6 +13,7 @@ import useFetchPlayerData from './hooks/useFetchPlayerData';
 // types
 import { ActiveType } from "./types/interfaces";
 import PlayedMatchesContainer from './components/PlayedMatchesStats/PlayedMatchesContainer';
+import SearchAndUpdateComponents from './components/SearchAndUpdate/SearchAndUpdateComponents';
 
 
 function App() {
@@ -40,15 +41,16 @@ function App() {
     return (
       <div className="App">
         <div className="container">
-          <PlayerStatsContainer toggleUpdate={fetchPlayerData} playerData={playerData}/>
+          <SearchAndUpdateComponents toggleUpdate={fetchPlayerData} username={playerData.username} />
+          <PlayerStatsContainer playerData={playerData} />
           <LineChart recentMatches={recentMatches} activeTab={activeTab} changeActiveTab={changeActiveTab} />
-          <PlayedMatchesContainer 
+          <PlayedMatchesContainer
             totalMatches={playerData.lifetime.mode.br.properties.gamesPlayed}
             top25={playerData.lifetime.mode.br.properties.topTwentyFive}
             top10={playerData.lifetime.mode.br.properties.topTen}
             top5={playerData.lifetime.mode.br.properties.topFive}
             wins={playerData.lifetime.mode.br.properties.wins}
-            />
+          />
           <RecentMatchesList recentMatches={recentMatches.matches} />
         </div>
       </div >

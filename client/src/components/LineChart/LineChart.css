@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 100%;
     /* padding: 0 1rem; */
-    margin-top: 7rem;
+    margin-top: 4rem;
 }
 
 .linechart-wrapper canvas {

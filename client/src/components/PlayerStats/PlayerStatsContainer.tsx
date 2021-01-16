@@ -16,11 +16,11 @@ import { roundToTwo } from '../../utils/display-data';
 
 interface Props {
     // username: string;
-    toggleUpdate: (name: string) => Promise<void>;
+    // toggleUpdate: (name: string) => Promise<void>;
     playerData: PlayerStatsData;
 };
 
-const PlayerStatsContainer: React.FC<Props> = ({ toggleUpdate, playerData }) => {
+const PlayerStatsContainer: React.FC<Props> = ({ playerData }) => {
     // const [isFav, setIsFav] = React.useState<boolean>(false);
     // const [isFocused, setIsFocused] = React.useState<boolean>(false);
     const { favoritePlayers, dispatch } = useGlobalSearchContext();
@@ -75,17 +75,7 @@ const PlayerStatsContainer: React.FC<Props> = ({ toggleUpdate, playerData }) => 
                 </div>
             </div>
 
-            <div className="update-container">
-                {/* <form onSubmit={handleSubmit}>
-                    <input
-                        className={`input-search ${isFocused ? 'focused' : ''}`}
-                        onFocus={toggleSearch}
-                    />
-                    <button className="search-btn"><FiSearch /></button>
-                </form> */}
-                <button className="btn btn-accent" onClick={() => toggleUpdate(playerData.username)}>update</button>
 
-            </div>
 
         </section>
     );

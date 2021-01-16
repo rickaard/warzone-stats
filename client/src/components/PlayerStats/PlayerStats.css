@@ -48,27 +48,6 @@
     color: var(--accent-color);
 }
 
-.btn-accent {
-    background-color: transparent;
-    border: 1px solid var(--accent-color);
-    border-radius: 20px;
-    color: var(--accent-color);
-    padding: 0.6rem 1.6rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-.btn-accent:hover {
-    color: #fff;
-}
-
-.update-container {
-    display: flex;
-    align-items: center;
-}
-
 .playerstats-wrapper--player_name {
     display: flex;
     flex-direction: row;
@@ -100,40 +79,6 @@
 .fav-btn.isFav:active {
     /* color: var(--secondary-color); */
     transform: scale(1.05);
-}
-
-.update-container form {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    align-items: center;
-    width: 294px;
-    /* margin-right: 1rem; */
-    justify-content: flex-end;
-}
-
-.update-container form input {
-    background: transparent;
-    border: 1px solid var(--accent-color);
-    border-radius: 23px;
-    padding: 0.65rem;
-    color: #fff;
-    width: 40px;
-    transition: width .5s ease-in-out;
-}
-
-.update-container form input.focused {
-    width: 200px;
-}
-
-.update-container form .search-btn {
-    position: relative;
-    font-size: 1.3rem;
-    right: 30px;
-    color: var(--accent-color);
-    font-weight: bold;
-    background: transparent;
-    border: none;
 }
 
 @media screen and (max-width: 800px) {
