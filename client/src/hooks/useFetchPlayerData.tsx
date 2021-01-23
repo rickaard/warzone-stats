@@ -38,7 +38,7 @@ const useFetchPlayerData = () => {
             }
             const result = await response.json();
 
-            // console.log(result);
+            // console.log('[useFetchPlayerData.tsx] - Result: ',result);
 
             // only add a new name to the recent searches if the fetching was successfull, i.e there's a user with that name
             dispatch({ type: 'ADD_TO_RECENT', payload: name });
