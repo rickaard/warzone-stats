@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
+
 dotenv.config();
 const app = express()
 // require('dotenv').config();
@@ -12,6 +14,10 @@ import { cod } from './api';
 
 app.use(express.json());
 app.use(cors());
+app.use(rateLimit({
+    windowMs: 60000,
+    max: 10
+}))
 
 app.get('/api', (_, res: Response) => {
     res.send({ message: 'works' });

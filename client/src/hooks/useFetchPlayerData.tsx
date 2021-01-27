@@ -34,7 +34,7 @@ const useFetchPlayerData = () => {
                 throw new CustomError('No user found. Try again.');
             }
             if (response.status >= 300) {
-                throw new CustomError('Error while fetching playerdata. Try again later.');
+                throw new CustomError('Error while getting playerstats. Try again later.');
             }
             const result = await response.json();
 
